@@ -48,6 +48,29 @@
           }
         ]
       }
+    },
+    "MemosTable": {
+      "Type" : "AWS::DynamoDB::Table",
+      "Properties" : {
+        "AttributeDefinitions" : [
+          { "AttributeName": "UserId", "AttributeType": "S" },
+          { "AttributeName": "CreatedAt", "AttributeType": "N" }
+        ],
+        "GlobalSecondaryIndexes" : [],
+        "KeySchema" : [
+          { "AttributeName": "UserId", "KeyType": "HASH" },
+          { "AttributeName": "CreatedAt", "KeyType": "RANGE" }
+        ],
+        "LocalSecondaryIndexes" : [],
+        "ProvisionedThroughput" : {
+          "ReadCapacityUnits" : 1,
+          "WriteCapacityUnits" : 1
+        } ,
+        "StreamSpecification" : {
+          "StreamViewType": "NEW_AND_OLD_IMAGES"
+        },
+        "TableName" : "Memos"
+      }
     }
   },
   "Outputs": {
