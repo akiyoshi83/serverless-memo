@@ -39,6 +39,35 @@
                 "logs:PutLogEvents"
               ],
               "Resource": "arn:aws:logs:${region}:*:*"
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "dynamodb:Query",
+                "dynamodb:Scan",
+                "dynamodb:PutItem",
+                "dynamodb:UpdateItem",
+                "dynamodb:DeleteItem"
+              ],
+              "Resource": [
+                {
+                  "Fn::Join": [ "", [
+                    "arn:aws:dynamodb:${region}:",
+                    { "Ref": "AWS::AccountId" },
+                    ":table/",
+                    { "Ref": "MemosTable" }
+                  ] ]
+                },
+                {
+                  "Fn::Join": [ "", [
+                    "arn:aws:dynamodb:${region}:",
+                    { "Ref": "AWS::AccountId" },
+                    ":table/",
+                    { "Ref": "MemosTable" },
+                    "/*"
+                  ] ]
+                }
+              ]
             }
           ]
         },
