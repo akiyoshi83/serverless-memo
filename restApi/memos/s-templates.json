@@ -1,0 +1,8 @@
+{
+  "createMemo": {
+    "application/json": {
+      "title": "$input.path('$.title')",
+      "body": "$input.path('$.body')"
+    }
+  }
+}

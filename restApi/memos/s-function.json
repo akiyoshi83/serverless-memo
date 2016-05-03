@@ -1,5 +1,5 @@
 {
-  "name": "createMemo",
+  "name": "memos",
   "runtime": "nodejs4.3",
   "description": "Serverless Lambda function for project: serverless-memo",
   "customName": false,
@@ -13,16 +13,14 @@
   },
   "endpoints": [
     {
-      "path": "createMemo",
-      "method": "GET",
+      "path": "memos",
+      "method": "POST",
       "type": "AWS",
       "authorizationType": "none",
       "authorizerFunction": false,
       "apiKeyRequired": false,
       "requestParameters": {},
-      "requestTemplates": {
-        "application/json": ""
-      },
+      "requestTemplates": "$${createMemo}",
       "responses": {
         "400": {
           "statusCode": "400"
