@@ -1,6 +1,7 @@
 {
   "createMemo": {
     "application/json": {
+      "apig": "$${APIGatewayParams}",
       "title": "$input.path('$.title')",
       "body": "$input.path('$.body')"
     }
