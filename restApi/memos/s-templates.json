@@ -5,5 +5,10 @@
       "title": "$input.path('$.title')",
       "body": "$input.path('$.body')"
     }
+  },
+  "listMemos": {
+    "application/json": {
+      "apig": "$${APIGatewayParams}"
+    }
   }
 }

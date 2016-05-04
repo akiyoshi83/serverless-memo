@@ -26,3 +26,22 @@ APIGatewayParams:
   userAgent: "$context.identity.userAgent"
   userArn: "$context.identity.userArn"
 
+
+ListMemosMappingTemplate: |
+  #set($inputRoot = $input.path('$'))
+  {
+    "Memos": [
+      #foreach($elem in $inputRoot.Items)
+      {
+        "UserId" : "$elem.UserId.S",
+        "Title" : "$elem.Title.S",
+        "Body" : "$elem.Body.S",
+        "CreatedAt" : "$elem.CreatedAt.N",
+        "UpdatedAt" : "$elem.UpdatedAt.N"
+      }#if($foreach.hasNext),#end
+      #end
+    ],
+    "Count": "$inputRoot.Count",
+    "ScannedCount": "$inputRoot.ScannedCount"
+  }
+
