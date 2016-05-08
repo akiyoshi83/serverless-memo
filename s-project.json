@@ -1,5 +1,11 @@
 {
   "name": "serverless-memo",
-  "custom": {},
-  "plugins": []
+  "plugins": [
+    "serverless-client-s3"
+  ],
+  "custom" : {
+    "client": {
+      "bucketName": "${project}-${stage}-${region}"
+    }
+  }
 }
