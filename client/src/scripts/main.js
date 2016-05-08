@@ -27,6 +27,10 @@ function getUser(username, userPool) {
   return new AWSCognito.CognitoIdentityServiceProvider.CognitoUser(userData);
 }
 
+function getUsername(email) {
+  return email.replace('@', '_');
+}
+
 function CognitoAttrs() {
   this.attrs = [];
 }
@@ -41,13 +45,16 @@ CognitoAttrs.prototype.add = function(name, value) {
 }
 
 function signup(email, password) {
+  initCognitoCredentials();
+
+  var now = new Date();
   var userPool = createUserPool();
-  var username = email;
+  var username = getUsername(email);
 
   var attrs = new CognitoAttrs();
   attrs.add('email', email);
 
-  userPool.signUp(username, password, attrs, null, function(err, result){
+  userPool.signUp(username, password, attrs.toArray(), null, function(err, result){
     if (err) {
       console.log(err);
       return;
@@ -60,8 +67,8 @@ function signup(email, password) {
 
 function verify(email, code) {
   var userPool = createUserPool();
-  var username = email;
-  var cognitoUser = getUser({ Username: username, Pool: userPool });
+  var username = getUsername(email);
+  var cognitoUser = getUser(username, userPool);
 
   cognitoUser.confirmRegistration(code, true, function(err, result) {
     if (err) {
@@ -74,8 +81,8 @@ function verify(email, code) {
 
 function signin(email, password) {
   var userPool = createUserPool();
-  var username = email;
-  var cognitoUser = getUser({ Username: username, Pool: userPool });
+  var username = getUsername(email);
+  var cognitoUser = getUser(username, userPool);
 
   var authenticationData = {
     Username : username,
